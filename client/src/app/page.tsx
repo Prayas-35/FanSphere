@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
+import { ConnectButton } from '@rainbow-me/rainbowkit'
 
 export default function Home() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -49,18 +50,26 @@ export default function Home() {
             >
               FanSphere
             </motion.div>
-            <div className="hidden md:flex space-x-4">
-              {navItems.map((item) => (
-                <a
-                  key={item.name}
-                  href={item.href}
-                  className={`hover:text-purple-300 transition-colors ${
-                    activeSection === item.href.slice(1) ? 'text-purple-300' : ''
-                  }`}
-                >
-                  {item.name}
-                </a>
-              ))}
+            <div className="hidden md:flex items-center space-x-6">
+              <div className="flex space-x-4">
+                {navItems.map((item) => (
+                  <a
+                    key={item.name}
+                    href={item.href}
+                    className={`hover:text-purple-300 transition-colors ${activeSection === item.href.slice(1) ? 'text-purple-300' : ''
+                      }`}
+                  >
+                    {item.name}
+                  </a>
+                ))}
+              </div>
+              <ConnectButton accountStatus={{
+                smallScreen: 'avatar',
+                largeScreen: 'address',
+              }} showBalance={{
+                smallScreen: true,
+                largeScreen: true,
+              }} chainStatus="none" />
             </div>
             <button
               className="md:hidden text-white focus:outline-none"
@@ -87,7 +96,7 @@ export default function Home() {
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3 }}
-              className="md:hidden mt-4 space-y-2"
+              className="md:hidden mt-4 space-y-4"
             >
               {navItems.map((item) => (
                 <a
@@ -99,6 +108,15 @@ export default function Home() {
                   {item.name}
                 </a>
               ))}
+              <div className="pt-2">
+                <ConnectButton accountStatus={{
+                  smallScreen: 'avatar',
+                  largeScreen: 'address',
+                }} showBalance={{
+                  smallScreen: true,
+                  largeScreen: true,
+                }} chainStatus="none" />
+              </div>
             </motion.div>
           )}
         </nav>
@@ -116,12 +134,23 @@ export default function Home() {
             <p className="text-xl md:text-2xl mb-8">
               The ultimate gamified concert ticket management app for music fans
             </p>
-            <a
-              href="#features"
-              className="bg-white text-purple-600 px-8 py-3 rounded-full text-lg font-semibold hover:bg-purple-100 transition-colors"
-            >
-              Explore Features
-            </a>
+            <div className="flex flex-col md:flex-row items-center justify-center space-y-4 md:space-y-0 md:space-x-4">
+              <a
+                href="#features"
+                className="bg-white text-purple-600 px-8 py-3 rounded-full text-lg font-semibold hover:bg-purple-100 transition-colors"
+              >
+                Explore Features
+              </a>
+              <div className="md:hidden lg:block">
+                <ConnectButton accountStatus={{
+                  smallScreen: 'avatar',
+                  largeScreen: 'address',
+                }} showBalance={{
+                  smallScreen: true,
+                  largeScreen: true,
+                }} chainStatus="none" />
+              </div>
+            </div>
           </motion.div>
         </section>
 

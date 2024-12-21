@@ -8,10 +8,11 @@ import { I18nProvider } from '@/core/i18n/provider';
 import '@telegram-apps/telegram-ui/dist/styles.css';
 import 'normalize.css/normalize.css';
 import './_assets/globals.css';
+import Providers from './providers';
 
 export const metadata: Metadata = {
-  title: 'Your Application Title Goes Here',
-  description: 'Your application description goes here',
+  title: 'FanSphere',
+  description: 'A telegram mini app for fans',
 };
 
 export default async function RootLayout({ children }: PropsWithChildren) {
@@ -19,13 +20,15 @@ export default async function RootLayout({ children }: PropsWithChildren) {
 
   return (
     <html lang={locale}>
-    <body>
-      <I18nProvider>
-        <Root>
-          {children}
-        </Root>
-      </I18nProvider>
-    </body>
+      <body>
+        <I18nProvider>
+          <Providers>
+            <Root>
+              {children}
+            </Root>
+          </Providers>
+        </I18nProvider>
+      </body>
     </html>
   );
 }
