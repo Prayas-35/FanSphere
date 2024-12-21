@@ -17,7 +17,7 @@ export default function Providers({
         <WagmiProvider config={config}>
             <QueryClientProvider client={queryClient}>
                 <RainbowKitProvider
-                    initialChain={84532}
+                    initialChain={5611}
                     theme={darkTheme({
                         accentColor: "#7b3fe4",
                         accentColorForeground: "white",
