@@ -196,40 +196,6 @@ export default function Home() {
             </div>
           </div>
         </section>
-
-        <section id="contact" className="py-20 bg-black bg-opacity-50">
-          <div className="container mx-auto px-6">
-            <h2 className="text-4xl font-bold mb-12 text-center">Get in Touch</h2>
-            <motion.form
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="max-w-lg mx-auto space-y-4"
-            >
-              <input
-                type="text"
-                placeholder="Your Name"
-                className="w-full px-4 py-2 rounded-lg bg-white bg-opacity-20 backdrop-blur-sm text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-300"
-              />
-              <input
-                type="email"
-                placeholder="Your Email"
-                className="w-full px-4 py-2 rounded-lg bg-white bg-opacity-20 backdrop-blur-sm text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-300"
-              />
-              <textarea
-                placeholder="Your Message"
-                rows={4}
-                className="w-full px-4 py-2 rounded-lg bg-white bg-opacity-20 backdrop-blur-sm text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-300"
-              ></textarea>
-              <button
-                type="submit"
-                className="w-full bg-purple-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-purple-700 transition-colors"
-              >
-                Send Message
-              </button>
-            </motion.form>
-          </div>
-        </section>
       </main>
 
       <footer className="bg-black bg-opacity-50 py-6">
