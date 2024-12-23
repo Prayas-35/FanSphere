@@ -1,0 +1,11 @@
+{
+  "name": "hardhat-project",
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox-viem": "^3.0.0",
+    "hardhat": "^2.22.17"
+  },
+  "dependencies": {
+    "@nomicfoundation/hardhat-ethers": "^3.0.8",
+    "dotenv": "^16.4.7"
+  }
+}
