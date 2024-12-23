@@ -4,10 +4,14 @@ import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { ConnectButton } from '@rainbow-me/rainbowkit'
+import { useSession } from "next-auth/react";
+import { signIn, signOut } from "next-auth/react";
 
 export default function Home() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [activeSection, setActiveSection] = useState('home')
+  const { data: session } = useSession();
+  const [isProfMenuOpen, setIsProfMenuOpen] = useState(false)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -135,12 +139,28 @@ export default function Home() {
               The ultimate gamified concert ticket management app for music fans
             </p>
             <div className="flex flex-col md:flex-row items-center justify-center space-y-4 md:space-y-0 md:space-x-4">
-              <a
-                href="#features"
-                className="bg-white text-purple-600 px-8 py-3 rounded-full text-lg font-semibold hover:bg-purple-100 transition-colors"
-              >
-                Explore Features
-              </a>
+              {session ? (
+                <div className="relative">
+                  <button
+                  className="bg-white text-purple-600 px-8 py-3 rounded-full text-lg font-semibold hover:bg-purple-100 transition-colors"
+                  onClick={() => setIsProfMenuOpen(!isProfMenuOpen)}
+                  >
+                  Welcome {session?.user?.name}!
+                  </button>
+                  {isProfMenuOpen && (
+                  <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-2 z-50">
+                    <button
+                    className="block w-full text-center px-4 py-2 font-bold text-purple-600 hover:bg-purple-100"
+                    onClick={() => signOut()}
+                    >
+                    Sign Out
+                    </button>
+                  </div>
+                  )}
+                </div>) : (
+                <button onClick={() => signIn()} className="bg-white text-purple-600 px-8 py-3 rounded-full text-lg font-semibold hover:bg-purple-100 transition-colors">Sign In</button>
+              ) 
+              }
               <div className="md:hidden lg:block">
                 <ConnectButton accountStatus={{
                   smallScreen: 'avatar',

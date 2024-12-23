@@ -4,6 +4,7 @@ import { getLocale } from 'next-intl/server';
 
 import { Root } from '@/components/Root/Root';
 import { I18nProvider } from '@/core/i18n/provider';
+import AuthProvider from '@/components/Providers/AuthProvider';
 
 import '@telegram-apps/telegram-ui/dist/styles.css';
 import 'normalize.css/normalize.css';
@@ -23,9 +24,11 @@ export default async function RootLayout({ children }: PropsWithChildren) {
       <body>
         <I18nProvider>
           <Providers>
+            <AuthProvider>
             <Root>
               {children}
             </Root>
+            </AuthProvider>
           </Providers>
         </I18nProvider>
       </body>
