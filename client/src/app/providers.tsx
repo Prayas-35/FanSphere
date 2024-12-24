@@ -24,7 +24,6 @@ export default function Providers({
                         borderRadius: "small",
                         overlayBlur: "small",
                     })}
-                    coolMode
                     modalSize="wide"
                 >
                     {children}

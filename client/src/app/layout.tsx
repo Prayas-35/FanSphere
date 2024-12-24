@@ -10,6 +10,7 @@ import '@telegram-apps/telegram-ui/dist/styles.css';
 import 'normalize.css/normalize.css';
 import './_assets/globals.css';
 import Providers from './providers';
+import { ThemeProvider } from 'next-themes';
 
 export const metadata: Metadata = {
   title: 'FanSphere',
@@ -25,9 +26,11 @@ export default async function RootLayout({ children }: PropsWithChildren) {
         <I18nProvider>
           <Providers>
             <AuthProvider>
-            <Root>
-              {children}
-            </Root>
+              <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+                <Root>
+                  {children}
+                </Root>
+              </ThemeProvider>
             </AuthProvider>
           </Providers>
         </I18nProvider>
