@@ -138,13 +138,7 @@ export default function EnhancedDashboard() {
                                     repeat: Infinity,
                                 }}
                             >
-                                <Image
-                                    src={musicData!.userData?.image}
-                                    alt={musicData!.userData.name}
-                                    width={200}
-                                    height={200}
-                                    className="rounded-full"
-                                />
+                                <UserProfile musicData={musicData} />
                             </motion.div>
                             <motion.h1
                                 className="text-3xl font-bold mb-2"
@@ -152,7 +146,7 @@ export default function EnhancedDashboard() {
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 0.2 }}
                             >
-                                {musicData!.userData.name}
+                                {musicData!.userData?.name}
                             </motion.h1>
                             <motion.p
                                 className="text-sm opacity-80"
@@ -223,16 +217,18 @@ export default function EnhancedDashboard() {
                                             initial={{ opacity: 0, scale: 0.5 }}
                                             animate={{ opacity: 1, scale: 1 }}
                                             transition={{ delay: 0.05 * index }}
-                                            onClick={() => setShowConfetti(true)}
+                                            onClick={() => {
+                                                setTimeout(() => setShowConfetti(true), 1000);
+                                            }}
                                         >
                                             <Image
                                                 src={artist.image}
-                                                alt={artist.name}
+                                                alt={artist?.name}
                                                 width={100}
                                                 height={100}
-                                                className="rounded-full mx-auto mb-2"
+                                                className="rounded-full mx-auto mb-2 object-fill h-28 w-28"
                                             />
-                                            <h3 className="text-center font-semibold">{artist.name}</h3>
+                                            <h3 className="text-center font-semibold">{artist?.name}</h3>
                                             <p className="text-center text-sm opacity-80">{artist.followers.toLocaleString()} followers</p>
                                             <div className="mt-2 text-xs text-center">
                                                 <span className="font-semibold">Popularity:</span> {artist.popularity}/100
@@ -245,7 +241,7 @@ export default function EnhancedDashboard() {
                             </motion.div>
                     </AnimatePresence>
                     {!loading && (
-                        <div className="flex py-6 space-x-2 overflow-x-auto pb-4">
+                        <div className="flex py-6 space-x-4 overflow-x-auto pb-4 px-4">
                             {musicData!.topArtists.slice(10, 50).map((artist) => (
                                 <motion.div
                                     key={artist.id}
@@ -255,10 +251,10 @@ export default function EnhancedDashboard() {
                                 >
                                     <Image
                                         src={artist.image}
-                                        alt={artist.name}
+                                        alt={artist?.name}
                                         width={50}
                                         height={50}
-                                        className="rounded-full"
+                                        className="rounded-full object-fill h-20 w-20"
                                     />
                                 </motion.div>
                             ))}
@@ -303,19 +299,18 @@ export default function EnhancedDashboard() {
                                             transition={{ delay: 0.05 * index }}
                                             onClick={() => {
                                                 setTimeout(() => setShowConfetti(true), 1000);
-                                                setTimeout(() => setShowConfetti(false), 1000);
                                             }}
                                         >
                                             <Image
                                                 src={track.image}
-                                                alt={track.name}
+                                                alt={track?.name}
                                                 width={60}
                                                 height={60}
                                                 className="rounded-md"
                                             />
                                             <div className="flex-grow">
-                                                <h3 className="font-semibold">{track.name}</h3>
-                                                <p className="text-sm opacity-80">{track.artists.map(a => a.name).join(', ')}</p>
+                                                <h3 className="font-semibold">{track?.name}</h3>
+                                                <p className="text-sm opacity-80">{track.artists.map(a => a?.name).join(', ')}</p>
                                                 <div className="text-xs mt-1">
                                                     <span className="font-semibold">Album:</span> {track.album}
                                                 </div>
@@ -333,7 +328,7 @@ export default function EnhancedDashboard() {
                     </AnimatePresence>
                     {!loading && expandedSection !== 'tracks' && (
                         <div className="flex space-x-2 overflow-x-auto pb-4">
-                            {musicData!.topTracks.slice(0, 10).map((track) => (
+                            {musicData!.topTracks.slice(0, 100).map((track) => (
                                 <motion.div
                                     key={track.id}
                                     className="flex-shrink-0"
@@ -342,10 +337,10 @@ export default function EnhancedDashboard() {
                                 >
                                     <Image
                                         src={track.image}
-                                        alt={track.name}
+                                        alt={track?.name}
                                         width={50}
                                         height={50}
-                                        className="rounded-md"
+                                        className="rounded-md h-20 w-20 ml-4 object-fill"
                                     />
                                 </motion.div>
                             ))}
@@ -355,5 +350,28 @@ export default function EnhancedDashboard() {
             </div>
         </div>
     )
+}
+
+function UserProfile({ musicData }: { musicData: any }) {
+    const userName = musicData?.userData?.name || "User";
+    const userImage = musicData?.userData?.image;
+
+    return (
+        <div className="flex items-center justify-center w-48 h-48 rounded-full bg-gray-200 overflow-hidden">
+            {userImage ? (
+                <img
+                    src={userImage}
+                    alt={userName}
+                    width={200}
+                    height={200}
+                    className="object-cover w-full h-full"
+                />
+            ) : (
+                <span className="text-4xl font-bold text-gray-700">
+                    {userName.charAt(0).toUpperCase()}
+                </span>
+            )}
+        </div>
+    );
 }
 

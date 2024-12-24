@@ -46,11 +46,11 @@ async function getUserData(code: string) {
     const userData = await response.json();
     const data = {
         "id": userData.id,
-        "name": userData.display_name,
+        "name": userData?.display_name,
         "url": userData.external_urls.spotify,
         "email": userData.email,
-        "followers": userData.followers.total,
-        "image": userData.images[0].url,
+        "followers": userData.followers?.total,
+        "image": userData.images[0]?.url,
     }
     return data;
 }
@@ -65,7 +65,7 @@ async function getTopArtists(code: string) {
     const topArtists = data.items.map((artist: any) => {
         return {
             "id": artist.id,
-            "name": artist.name,
+            "name": artist?.name,
             "url": artist.external_urls.spotify,
             "followers": artist.followers.total,
             "image": artist.images[0].url,
@@ -93,16 +93,16 @@ async function getTopTracks(code: string) {
     const topTracks = data.map((track: any) => {
         return {
             "id": track.id,
-            "album": track.album.name,
+            "album": track.album?.name,
             "image": track.album.images[0].url,
             "release_date": track.album.release_date,
-            "name": track.name,
+            "name": track?.name,
             "url": track.external_urls.spotify,
             "popularity": track.popularity,
             "artists": track.artists.map((artist: any) => {
                 return {
                     "id": artist.id,
-                    "name": artist.name,
+                    "name": artist?.name,
                     "url": artist.external_urls.spotify,
                 }
             }),
@@ -163,6 +163,8 @@ async function posthandler(req: NextRequest) {
             });
         }
         catch (error) {
+            console.log("Error", error);
+            console.log("Invalid access token", accessToken);
             return NextResponse.json({ error: 'Invalid access token' }, { status: 400 });
         }
     }
