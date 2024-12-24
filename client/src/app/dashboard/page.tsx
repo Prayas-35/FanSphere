@@ -139,7 +139,7 @@ export default function EnhancedDashboard() {
                                 }}
                             >
                                 <Image
-                                    src={musicData!.userData.image}
+                                    src={musicData!.userData?.image}
                                     alt={musicData!.userData.name}
                                     width={200}
                                     height={200}
