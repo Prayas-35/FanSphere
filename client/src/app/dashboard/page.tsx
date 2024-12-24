@@ -87,35 +87,26 @@ export default function EnhancedDashboard() {
     }
 
     const toggleSection = (section: 'artists' | 'tracks') => {
-        if (expandedSection === section) {
-            setExpandedSection(null)
-        } else {
-            setExpandedSection(section)
-        }
+        setExpandedSection(expandedSection === section ? null : section)
         setTimeout(() => {
             scrollRef.current?.scrollIntoView({ behavior: 'smooth' })
         }, 100)
     }
 
-    useEffect(() => {
-        if (expandedSection === null) {
-            setExpandedSection(prev => (prev === 'artists' ? 'tracks' : 'artists'))
-        }
-    }, [expandedSection])
 
-    const getGenreData = () => {
-        if (!musicData) return []
-        const genreCounts: { [key: string]: number } = {}
-        musicData.topArtists.forEach(artist => {
-            artist.genres.forEach(genre => {
-                genreCounts[genre] = (genreCounts[genre] || 0) + 1
-            })
-        })
-        return Object.entries(genreCounts)
-            .sort((a, b) => b[1] - a[1])
-            .slice(0, 5)
-            .map(([name, value]) => ({ name, value }))
-    }
+    // const getGenreData = () => {
+    //     if (!musicData) return []
+    //     const genreCounts: { [key: string]: number } = {}
+    //     musicData.topArtists.forEach(artist => {
+    //         artist.genres.forEach(genre => {
+    //             genreCounts[genre] = (genreCounts[genre] || 0) + 1
+    //         })
+    //     })
+    //     return Object.entries(genreCounts)
+    //         .sort((a, b) => b[1] - a[1])
+    //         .slice(0, 5)
+    //         .map(([name, value]) => ({ name, value }))
+    // }
 
     return (
         <div className="min-h-screen bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 dark:from-purple-900 dark:via-pink-900 dark:to-red-900 text-white p-4 overflow-x-hidden relative">
@@ -201,7 +192,7 @@ export default function EnhancedDashboard() {
                     </motion.section>
                 )} */}
 
-                <section className="mb-8" ref={scrollRef}>
+                <section className="mb-8">
                     <div className="flex justify-between items-center mb-4">
                         <motion.h2
                             className="text-2xl font-bold"
@@ -275,7 +266,7 @@ export default function EnhancedDashboard() {
                     )}
                 </section>
 
-                <section>
+                <section ref={scrollRef}>
                     <div className="flex justify-between items-center mb-4">
                         <motion.h2
                             className="text-2xl font-bold"
@@ -310,7 +301,10 @@ export default function EnhancedDashboard() {
                                             initial={{ opacity: 0, x: -20 }}
                                             animate={{ opacity: 1, x: 0 }}
                                             transition={{ delay: 0.05 * index }}
-                                            onClick={() => setShowConfetti(true)}
+                                            onClick={() => {
+                                                setTimeout(() => setShowConfetti(true), 1000);
+                                                setTimeout(() => setShowConfetti(false), 1000);
+                                            }}
                                         >
                                             <Image
                                                 src={track.image}
